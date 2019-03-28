@@ -1,5 +1,6 @@
 package ua.com.qatestlab.prestashopautomation.yarmolenko;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -50,6 +51,7 @@ public class SearchResultsPage {
      * @param sortCondition is the string for seting condition for sorting goods
      * @throws IllegalArgumentException the illegal argument exception
      */
+    @Step("seting condition {0} for sorting goods")
     public void setTheSortCondition(String sortCondition) throws IllegalArgumentException{
         if (sortCondition.equals("от высокой к низкой") || sortCondition.equals("от низкой к высокой")
                 || sortCondition.equals("от А к Я") || sortCondition.equals("от Я к А")

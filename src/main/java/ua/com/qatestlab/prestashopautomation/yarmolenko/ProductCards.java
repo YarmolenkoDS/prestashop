@@ -1,8 +1,10 @@
 package ua.com.qatestlab.prestashopautomation.yarmolenko;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -43,6 +45,11 @@ public class ProductCards {
     private By productPriceWithoutDiscont = By.xpath(".//span[@class=\"regular-price\"]");
 
     /**
+     * Locator by quick view of poduct
+     */
+    private By quickViewProduct = By.xpath(".//a[@class=\"quick-view\"]");
+
+    /**
      * Constructor
      */
     public ProductCards(WebDriver driver) {
@@ -55,15 +62,17 @@ public class ProductCards {
      *
      * @return the list of product cards on the page
      */
+//    @Step("get a list of product cards on the page")
     public List<WebElement> getProductCardsList() {
         return productCardsList;
     }
 
     /**
-     * Method to get the currency symbol of price cards
+     * Method to get the currency of price cards
      *
      * @return the currency of product cards price on the page
      */
+    @Step("get the currency of price cards")
     public String getCurrencyOfProductCardsPrice() {
         String result = "";
         char cuurencySymbol = ((driver.findElement(productPrice).getText())
@@ -93,6 +102,8 @@ public class ProductCards {
      *
      * @return boolean value of checking the sorting of goods by price from high to low without discount
      */
+//    @Step("checking the sorting of goods by price from high to low without discount")
+    @Step("checking the sorting of goods by price from high to low without discount")
     public boolean areSortedFromHighToLowPricesWithoutDiscount() {
         boolean flag = false;
         float[] arrOfpriceWithoutDiscont = new float[getProductCardsList().size()];
@@ -123,6 +134,8 @@ public class ProductCards {
      *
      * @return string conteining information about products with discont
      */
+//    @Step("check that the discount items have a percentage discount with the price before and after the discount")
+    @Step("check that the discount items have a percentage discount with the price before and after the discount")
     public String infoAboutProductsWithDiscont() {
         StringBuilder sb = new StringBuilder();
         for (WebElement we : getProductCardsList()) {
@@ -142,6 +155,8 @@ public class ProductCards {
      *
      * @return boolean value of checking the price before and after the discount matches the specified discount size
      */
+//    @Step("verify that the price before and after the discount matches the specified discount size")
+    @Step("verify that the price before and after the discount matches the specified discount size")
     public boolean checkingPricesConsideringDiscounts() {
         boolean flag = true;
         for (WebElement we : getProductCardsList()) {
@@ -216,6 +231,26 @@ public class ProductCards {
         }
         sb.append("\n");
         return sb.toString();
+    }
+
+    /**
+     * Method for getting a string of the list of prices of products on the page without discount
+     *
+     * @return the string of the list of prices for product cards on the page without discount
+     */
+    public void  methodToAddProductToCart(String nameOfGood) throws InterruptedException {
+        Actions action = new Actions(driver);
+        for (WebElement we : getProductCardsList()) {
+            if (we.getText().contains(nameOfGood)) {
+                action.moveToElement(we).click().build().perform();
+                Thread.sleep(2000);
+                driver.findElement(quickViewProduct).click();
+                Thread.sleep(5000);
+                return;
+            }
+        }
+
+
     }
 
 }

@@ -1,6 +1,7 @@
 package ua.com.qatestlab.prestashopautomation.yarmolenko;
 
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,6 +42,7 @@ public class MainPage {
      *
      * @param wordForSearch is the search string in product catalog
      */
+    @Step("get the searching result by the word {0}")
     public SearchResultsPage searchInCatalog(String wordForSearch) {
         inputSearchField.sendKeys(wordForSearch);
         searchButton.click();

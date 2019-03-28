@@ -4,6 +4,7 @@
 	<test name="User Tests">
 		<classes>
 			<class name="ua.com.qatestlab.prestashopautomation.yarmolenko.test.PrestashopTest" />
+
 		</classes>
 	</test>
 </suite>

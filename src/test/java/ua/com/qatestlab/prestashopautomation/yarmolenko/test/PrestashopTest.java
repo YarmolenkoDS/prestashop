@@ -2,6 +2,7 @@ package ua.com.qatestlab.prestashopautomation.yarmolenko.test;
 
 
 
+import io.qameta.allure.Description;
 import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -47,15 +48,14 @@ public class PrestashopTest {
         header = new Header(driver);
     }
 
-
-    @Test(priority=1)
-    public void comparisonOfTheCurrencyInTheHeaderWithTheCurrencyOofTheCommodityCards() {
+    @Test(priority = 0)
+    public void comparisonOfTheCurrencyInTheHeaderWithTheCurrencyOfTheCommodityCards() {
         Assert.assertTrue((header.getSelectedCurrency()).contains(productCards.getCurrencyOfProductCardsPrice()),
                 "The mismatch of currencies in the header and on the cards");
     }
 
 
-    @Test(priority=2)
+    @Test(priority = 1)
     public void checkThatTheSearchPageContainsAnInscription() {
         header.setTheCurrencyOfPrices("USD");
         searchResultsPage = mainPage.searchInCatalog("dress");
@@ -65,28 +65,33 @@ public class PrestashopTest {
                 + productCards.getProductCardsList().size());
     }
 
-    @Test(priority=3)
+    @Test(priority = 2)
     public void checkThatThePricesOfGoodsAreInUSD() {
         Assert.assertEquals( productCards
                 .getCurrencyOfProductCardsPrice(),"USD", "The currency of the commodity cards is not a dollar");
     }
 
-    @Test(priority=4)
+    @Test(priority = 3)
     public void checkingTheSortingOfGoodsAtHighToLowPricesWithoutDiscount() {
         searchResultsPage.setTheSortCondition("от высокой к низкой");
         Assert.assertTrue(productCards.areSortedFromHighToLowPricesWithoutDiscount(),
                 "The goods sorting from high to low prices without discount is not true");
     }
 
-    @Test(priority=5)
+    @Test(priority = 4)
     public void checkThatThediscountedProductsHaveAPercentageDiscountWithThePriceBeforeAndAfterTheDiscount() {
         System.out.println(productCards.infoAboutProductsWithDiscont());
     }
 
-    @Test(priority=6)
+    @Test(priority = 5)
     public void checkPricesBeforeAndAfterTheDiscount() {
         Assert.assertTrue(productCards.checkingPricesConsideringDiscounts(),"Price before and after the"
                 + " discount does not match the specified discount size");
+    }
+
+    @Test(priority = 6)
+    public void checkAddingProductToCart() throws InterruptedException {
+        productCards.methodToAddProductToCart("Printed Dress");
     }
 
     @AfterClass
