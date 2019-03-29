@@ -243,9 +243,9 @@ public class ProductCards {
         for (WebElement we : getProductCardsList()) {
             if (we.getText().contains(nameOfGood)) {
                 action.moveToElement(we).click().build().perform();
-                Thread.sleep(2000);
-                driver.findElement(quickViewProduct).click();
-                Thread.sleep(5000);
+                we.findElement(quickViewProduct).click();
+                WebDriverWait wait = (new WebDriverWait(driver, 10));
+                wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@class=\"modal-dialog\"]"))));
                 return;
             }
         }

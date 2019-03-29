@@ -65,13 +65,13 @@ public class PrestashopTest {
                 + productCards.getProductCardsList().size());
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2, dependsOnMethods = "checkThatTheSearchPageContainsAnInscription" )
     public void checkThatThePricesOfGoodsAreInUSD() {
         Assert.assertEquals( productCards
                 .getCurrencyOfProductCardsPrice(),"USD", "The currency of the commodity cards is not a dollar");
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3, dependsOnMethods = "checkThatTheSearchPageContainsAnInscription")
     public void checkingTheSortingOfGoodsAtHighToLowPricesWithoutDiscount() {
         searchResultsPage.setTheSortCondition("от высокой к низкой");
         Assert.assertTrue(productCards.areSortedFromHighToLowPricesWithoutDiscount(),
@@ -79,7 +79,7 @@ public class PrestashopTest {
     }
 
     @Test(priority = 4)
-    public void checkThatThediscountedProductsHaveAPercentageDiscountWithThePriceBeforeAndAfterTheDiscount() {
+    public void checkThatTheDiscountedProductsHaveAPercentageDiscountWithThePriceBeforeAndAfterTheDiscount() {
         System.out.println(productCards.infoAboutProductsWithDiscont());
     }
 
@@ -90,9 +90,16 @@ public class PrestashopTest {
     }
 
     @Test(priority = 6)
+    public void checkAvailableCurrenciesFromTheDropDownListInHeader() {
+        header.printListOfAllAvailableCurrenciesFromTheDropDownList();
+    }
+
+    @Test(priority = 7)
     public void checkAddingProductToCart() throws InterruptedException {
         productCards.methodToAddProductToCart("Printed Dress");
     }
+
+
 
     @AfterClass
     public void tearDown() {

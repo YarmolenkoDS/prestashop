@@ -9,7 +9,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * The type Header to discribe of the site header
@@ -83,5 +86,16 @@ public class Header {
             throw new IllegalArgumentException("The method parameter must be the"
                     + " string \"USD\" or \"UAH\" or \"EUR\"");
         }
+    }
+
+    public void printListOfAllAvailableCurrenciesFromTheDropDownList() {
+/*        Stream.of(getDropDawnListOfCurrency())
+                .map(x -> x.)
+                .forEach(System.out::println);*/
+
+        getDropDawnListOfCurrency().stream()
+ //               .filter(x -> x.getText().contains("USD"))
+                .map(x -> x.getText())
+                .forEach(System.out::println);
     }
 }
